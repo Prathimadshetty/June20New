@@ -53,7 +53,7 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../Input%20%26%20Output%20Validation/">Input & Output Validation</a>
+                <li class="toctree-l1"><a class="reference internal" href="../Input%20and%20Output%20Validation/">Input and Output Validation</a>
                 </li>
               </ul>
               <ul>
@@ -147,20 +147,8 @@
 <tr>
 <td align="right">4</td>
 <td align="left">Store User Passwords Using a Strong, Iterative, Salted Hash</td>
-<td align="left">User passwords must be stored using secure hashing techniques with strong algorithms like PBKDF2, bcrypt, or SHA-512. Simply hashing the</td>
+<td align="left">User passwords must be stored using secure hashing techniques with strong algorithms like PBKDF2, bcrypt, or SHA-512. Simply hashing the password a single time does not sufficiently protect the password. Use adaptive hashing (a work factor), combined with a randomly generated salt for each user to make the hash strong.</td>
 <td align="left">CWE-257</td>
-</tr>
-<tr>
-<td align="right"></td>
-<td align="left"></td>
-<td align="left">password a single time does not sufficiently protect the password. Use adaptive hashing (a work factor), combined with a randomly generated</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="right"></td>
-<td align="left"></td>
-<td align="left">salt for each user to make the hash strong.</td>
-<td align="left"></td>
 </tr>
 <tr>
 <td align="right">5</td>
@@ -171,14 +159,8 @@
 <tr>
 <td align="right">6</td>
 <td align="left">Set Up Secure Key Management Processes</td>
-<td align="left">When keys are stored in your system they must be properly secured and only accessible to the appropriate staff on a need to know basis.</td>
+<td align="left">When keys are stored in your system they must be properly secured and only accessible to the appropriate staff on a need to know basis. Example: AWS Key Management Service (KMS), Azure Key Vault, AWS CloudHSM</td>
 <td align="left">CWE-320</td>
-</tr>
-<tr>
-<td align="right"></td>
-<td align="left"></td>
-<td align="left">Example: AWS Key Management Service (KMS), Azure Key Vault, AWS CloudHSM</td>
-<td align="left"></td>
 </tr>
 <tr>
 <td align="right">7</td>
