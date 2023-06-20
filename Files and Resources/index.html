@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Authentication - Application Security Checklist</title>
+    <title>Files and Resources - Application Security Checklist</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Authentication";
-        var mkdocs_page_input_path = "Authentication.md";
+        var mkdocs_page_name = "Files and Resources";
+        var mkdocs_page_input_path = "Files and Resources.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -40,8 +40,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../Architecture/">Architecture</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Authentication</a>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Authentication/">Authentication</a>
                 </li>
               </ul>
               <ul>
@@ -80,8 +80,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../Business%20Logic/">Business Logic</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../Files%20and%20Resources/">Files and Resources</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Files and Resources</a>
                 </li>
               </ul>
               <ul>
@@ -106,7 +106,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-      <li>Authentication</li>
+      <li>Files and Resources</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -128,45 +128,93 @@
 <tbody>
 <tr>
 <td align="right">1</td>
-<td align="left">Don't Hardcode Credentials</td>
-<td align="left">Never allow credentials to be stored directly within the application code. While it can be convenient to test application code with hardcoded credentials during development this significantly increases risk and should be avoided.</td>
-<td align="left">CWE-798</td>
+<td align="left">File Upload Requirements</td>
+<td align="left">Verify that the application will not accept large files that could fill up storage or cause a denial of service.</td>
+<td align="left">CWE-400</td>
 </tr>
 <tr>
 <td align="right">2</td>
-<td align="left">Develop a Strong Password Reset System</td>
-<td align="left">Password reset systems are often the weakest link in an application. These systems are often based on the user answering personal questions to establish their identity and in turn reset the password. The system needs to be based on questions that are both hard to guess and brute force. Additionally, any password reset option must not reveal whether or not an account is valid, preventing username harvesting.</td>
-<td align="left">CWE-640</td>
+<td align="left">File Upload Requirements</td>
+<td align="left">Verify that compressed files are checked for "zip bombs" - small input files that will decompress into huge files thus exhausting file storage limits.</td>
+<td align="left">CWE-409</td>
 </tr>
 <tr>
 <td align="right">3</td>
-<td align="left">Implement a Strong Password Policy and Move Towards Passwordless Authentication</td>
-<td align="left">For password based authentication, password policy should be created and implemented so that passwords meet specific strength criteria. If the user base and application can support it, leverage the various forms of passwordless authentication such as FIDO2 based authentication or mobile application push based authenticators.</td>
-<td align="left">CWE-521</td>
+<td align="left">File Upload Requirements</td>
+<td align="left">Verify that a file size quota and maximum number of files per user is enforced to ensure that a single user cannot fill up the storage with too many files, or excessively large files.</td>
+<td align="left">CWE-770</td>
 </tr>
 <tr>
 <td align="right">4</td>
-<td align="left">Implement Account Lockout against Brute Force Attacks</td>
-<td align="left">Account lockout needs to be implemented to guard against brute forcing attacks against both the authentication and password reset functionality. After several tries on a specific user account, the account should be locked for a period of time or until manually unlocked. Additionally, it is best to continue the same failure message indicating that the credentials are incorrect or the account is locked to prevent an attacker from harvesting usernames.</td>
-<td align="left">CWE-307</td>
+<td align="left">File Integrity Requirements</td>
+<td align="left">Verify that files obtained from untrusted sources are validated to be of expected type based on the file's content.</td>
+<td align="left">CWE-434</td>
 </tr>
 <tr>
 <td align="right">5</td>
-<td align="left">Don't Disclose Too Much Information in Error Messages</td>
-<td align="left">Messages for authentication errors must be clear and, at the same time, be written so that sensitive information about the system is not disclosed. For example, error messages which reveal that the userid is valid but that the corresponding password is incorrect confirms to an attacker that the account does exist on the system.</td>
-<td align="left">.</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that user-submitted filename metadata is not used directly by system or framework filesystems and that a URL API is used to protect against path traversal.</td>
+<td align="left">CWE-22</td>
 </tr>
 <tr>
 <td align="right">6</td>
-<td align="left">Store Database Credentials and API keys Securely</td>
-<td align="left">Modern web applications usually consist of multiple layers. The business logic tier (processing of information) often connects to the data tier (database). Connecting to the database, of course, requires authentication. The authentication credentials in the business logic tier must be stored in a centralized location that is locked down. The same applies to accessing APIs providing services to support your application. Scattering credentials throughout the source code is not acceptable. Some development frameworks provide a centralized secure location for storing credentials to the backend database. Secret management solutions that are cloud based or on-premise can be used to allow the application to acquire the credential at application launch or when needed, therefore securing the credentials and avoid storing them statically on disk within a server or a container image.</td>
-<td align="left">CWE-257</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that user-submitted filename metadata is validated or ignored to prevent the disclosure, creation, updating or removal of local files (LFI).</td>
+<td align="left">CWE-73</td>
 </tr>
 <tr>
 <td align="right">7</td>
-<td align="left">Applications and Middleware Should Run with Minimal Privileges</td>
-<td align="left">If an application becomes compromised it is important that the application itself and any middleware services be configured to run with minimal privileges. For instance, while the application layer or business layer needs the ability to read and write data to the underlying database, administrative credentials that grant access to other databases or tables should not be provided.</td>
-<td align="left">CWE-250</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that user-submitted filename metadata is validated or ignored to prevent the disclosure or execution of remote files via Remote File Inclusion (RFI) or Server-side Request Forgery (SSRF) attacks.</td>
+<td align="left">CWE-98</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that the application protects against Reflective File Download (RFD) by validating or ignoring user-submitted filenames in a JSON, JSONP, or URL parameter, the response Content-Type header should be set to text/plain, and the Content-Disposition header should have a fixed filename.</td>
+<td align="left">CWE-641</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that untrusted file metadata is not used directly with system API or libraries, to protect against OS command injection.</td>
+<td align="left">CWE-78</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td align="left">Secure File Execution</td>
+<td align="left">Verify that the application does not include and execute functionality from untrusted sources, such as unverified content distribution networks, JavaScript libraries, node npm libraries, or server-side DLLs.</td>
+<td align="left">CWE-829</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td align="left">Secure File Storage</td>
+<td align="left">Verify that files obtained from untrusted sources are stored outside the web root, with limited permissions, preferably with strong validation.</td>
+<td align="left">CWE-922</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td align="left">Secure File Storage</td>
+<td align="left">Verify that files obtained from untrusted sources are scanned by antivirus scanners to prevent upload of known malicious content.</td>
+<td align="left">CWE-509</td>
+</tr>
+<tr>
+<td align="right">13</td>
+<td align="left">Secure File Download</td>
+<td align="left">Verify that the web tier is configured to serve only files with specific file extensions to prevent unintentional information and source code leakage. For example, backup files (e.g. .bak), temporary working files (e.g. .swp), compressed files (.zip, .tar.gz, etc) and other extensions commonly used by editors should be blocked unless required.</td>
+<td align="left">CWE-552</td>
+</tr>
+<tr>
+<td align="right">14</td>
+<td align="left">SSRF Protection Requirements</td>
+<td align="left">Verify that direct requests to uploaded files will never be executed as HTML/JavaScript content.</td>
+<td align="left">CWE-434</td>
+</tr>
+<tr>
+<td align="right">15</td>
+<td align="left">SSRF Protection Requirements</td>
+<td align="left">Verify that the web or application server is configured with an allow list of resources or systems to which the server can send requests or load data/files from.</td>
+<td align="left">CWE-918</td>
 </tr>
 </tbody>
 </table>
@@ -175,8 +223,8 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../Architecture/" class="btn btn-neutral float-left" title="Architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../Session%20Management/" class="btn btn-neutral float-right" title="Session Management">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Business%20Logic/" class="btn btn-neutral float-left" title="Business Logic"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Web%20Service/" class="btn btn-neutral float-right" title="Web Service">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -199,10 +247,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Business%20Logic/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Session%20Management/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Web%20Service/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
